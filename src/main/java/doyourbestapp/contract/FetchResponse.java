@@ -1,5 +1,6 @@
-package doyourbestapp.controller;
+package doyourbestapp.contract;
 
+import doyourbestapp.models.RetroCalendarInventory;
 import doyourbestapp.models.RetroCalender;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +14,7 @@ import java.util.List;
  */
 @Data
 @Builder
-public class FetchResponse {
-    private String value;
+public class FetchResponse implements Response {
     private String errorMessage;
-    private List<RetroCalender> retroCalenders;
-    private ResponseEntity<String> responseEntity;
+    private RetroCalendarInventory retroCalendarInventory;
 }

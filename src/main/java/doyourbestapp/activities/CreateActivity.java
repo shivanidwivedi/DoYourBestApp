@@ -2,9 +2,8 @@ package doyourbestapp.activities;
 
 import doyourbestapp.util.AppConstants;
 import doyourbestapp.cache.CreateActivityCache;
-import doyourbestapp.contracts.Activity;
-import doyourbestapp.controller.CreateRequest;
-import doyourbestapp.controller.CreateResponse;
+import doyourbestapp.contract.CreateRequest;
+import doyourbestapp.contract.CreateResponse;
 import doyourbestapp.models.RetroCalendarInventory;
 import doyourbestapp.models.RetroCalender;
 import doyourbestapp.models.RetroDay;
@@ -12,9 +11,6 @@ import doyourbestapp.util.DateUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -54,11 +50,12 @@ public class CreateActivity implements Activity<CreateRequest, CreateResponse> {
     @Override
     public CreateResponse processRequest(CreateRequest createRequest) throws ParseException {
         RetroDay retroDay = transform(createRequest);
+        int userId = createRequest.getId();
 
         LOGGER.info("Inside Create activity process");
        // FetchResponse response = FetchResponse.builder().value(retroDay.toString()).build();
-        if (retroCalendarInventory.getUserDaysMap().containsKey(retroDay)) { //user already exist in the inventory
-            RetroCalender currentCalender = retroCalendarInventory.getUserDaysMap().get(retroDay); // get the user's calender
+        if (retroCalendarInventory.getUserDaysMap().containsKey(userId)) { //user already exist in the inventory
+            RetroCalender currentCalender = retroCalendarInventory.getUserDaysMap().get(userId); // get the user's calender
             RetroDay sameDay = currentCalender.getSameDay(retroDay); // check if the day already exists in the calender
             /*
             if the day already exists in the calender
@@ -77,11 +74,10 @@ public class CreateActivity implements Activity<CreateRequest, CreateResponse> {
             // create new calender for the user
             RetroCalender retroCalender = new RetroCalender();
             retroCalender.addDay(retroDay); // add day to the calender
-            retroCalendarInventory.getUserDaysMap().put(retroDay, retroCalender); // make entry to the map
+            retroCalendarInventory.getUserDaysMap().put(createRequest.getId(), retroCalender); // make entry to the map
         }
 
         return CreateResponse.builder()
-                .responseEntity(ResponseEntity.status(HttpStatus.CREATED).build())
                 .isSuccess(true)
                 .build();
     }

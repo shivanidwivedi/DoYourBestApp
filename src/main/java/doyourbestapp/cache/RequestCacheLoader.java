@@ -1,7 +1,7 @@
 package doyourbestapp.cache;
 
 import com.google.common.cache.CacheLoader;
-import doyourbestapp.controller.FetchResponse;
+import doyourbestapp.contract.FetchResponse;
 import doyourbestapp.activities.CreateActivity;
 import doyourbestapp.models.RetroDay;
 import org.springframework.beans.factory.annotation.Autowired;

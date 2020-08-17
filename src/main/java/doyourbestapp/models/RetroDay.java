@@ -1,13 +1,9 @@
 package doyourbestapp.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +13,7 @@ import java.util.Objects;
  */
 @Builder
 @Data
-public class RetroDay implements Comparable<Date>{
+public class RetroDay implements Comparable<RetroDay> {
     int userId; //think if it should be stored here ?
     boolean isMyBestDay;
     String note;
@@ -30,12 +26,12 @@ public class RetroDay implements Comparable<Date>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RetroDay request = (RetroDay) o;
-        return userId == request.userId;
+        return userId == request.userId && date.equals(request.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        return Objects.hash(userId + date.toString());
     }
 
     @Override
@@ -44,13 +40,17 @@ public class RetroDay implements Comparable<Date>{
                 "userId=" + userId +
                 ", isMyBestDay=" + isMyBestDay +
                 ", note='" + note +
-                ", date = " +date +
+                ", date = " + date +
                 '}';
     }
 
     @Override
-    public int compareTo(Date o) {
-        return this.compareTo(o);
+    public int compareTo(RetroDay o) {
+        if (this.equals(o)) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
 

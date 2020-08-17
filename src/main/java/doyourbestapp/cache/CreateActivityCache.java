@@ -2,7 +2,7 @@ package doyourbestapp.cache;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
-import doyourbestapp.controller.FetchResponse;
+import doyourbestapp.contract.FetchResponse;
 import doyourbestapp.models.RetroDay;
 import lombok.Getter;
 

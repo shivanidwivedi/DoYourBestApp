@@ -1,18 +1,15 @@
 package doyourbestapp.activities;
 
-import doyourbestapp.util.AppConstants;
 import doyourbestapp.cache.CreateActivityCache;
-import doyourbestapp.contracts.Activity;
-import doyourbestapp.controller.FetchRequest;
-import doyourbestapp.controller.FetchRequestType;
-import doyourbestapp.controller.FetchResponse;
+import doyourbestapp.contract.FetchRequest;
+import doyourbestapp.contract.FetchRequestType;
+import doyourbestapp.contract.FetchResponse;
 import doyourbestapp.models.RetroCalendarInventory;
 import doyourbestapp.models.RetroCalender;
+import doyourbestapp.util.AppConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,9 +31,9 @@ public class FetchActivity implements Activity<FetchRequest, FetchResponse> {
 
     @Override
     public boolean validate(FetchRequest request) {
-        if (request.getId() <= 0) {
-            return false;
-        }
+       // if (request.getId() <= 0) {
+         //   return false;
+        //}
         return true;
     }
 
@@ -44,11 +41,8 @@ public class FetchActivity implements Activity<FetchRequest, FetchResponse> {
     public FetchResponse processRequest(FetchRequest fetchRequest) {
         switch (FetchRequestType.ALL) {
             case ALL:
-                List<RetroCalender> retroCalenders = new ArrayList<>();
-                retroCalenders.add(retroCalendarInventory.getDaysByUser(fetchRequest.getId()));
                 return FetchResponse.builder()
-                        .retroCalenders(retroCalenders)
-                        .responseEntity(ResponseEntity.status(HttpStatus.OK).body(retroCalendarInventory.toString()))
+                        .retroCalendarInventory(retroCalendarInventory)
                         .build();
             case DAY:
                 break;

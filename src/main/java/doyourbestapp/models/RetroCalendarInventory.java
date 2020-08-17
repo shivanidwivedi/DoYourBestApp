@@ -1,10 +1,11 @@
 package doyourbestapp.models;
 
+import doyourbestapp.activities.CreateActivity;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author shivanidwivedi on 30/07/20
@@ -14,14 +15,15 @@ import java.util.Map;
  */
 @Getter
 public class RetroCalendarInventory {
-    private HashMap<RetroDay, RetroCalender> userDaysMap;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetroCalendarInventory.class);
+    //user id and their calendar
+    private HashMap<Integer, RetroCalender> userDaysMap;
 
     private static RetroCalendarInventory bestDaysInventory;
 
     public RetroCalender getDaysByUser(int userId) {
-        RetroDay retroDay = RetroDay.builder().userId(userId).build();
-        if (userDaysMap.containsKey(retroDay)) {
-            return userDaysMap.get(retroDay);
+        if (userDaysMap.containsKey(userId)) {
+            return userDaysMap.get(userId);
         }
         return null;
     }
@@ -31,7 +33,11 @@ public class RetroCalendarInventory {
     }
 
     public void addToCalendar(RetroDay day) {
-        userDaysMap.get(day).addDay(day);
+        if(userDaysMap.containsKey(day.getUserId())) {
+            userDaysMap.get(day.getUserId()).addDay(day);
+        } else {
+            LOGGER.error("day {} does nto exist in calendar", day.toString());
+        }
     }
 
     public static RetroCalendarInventory createInventory() {

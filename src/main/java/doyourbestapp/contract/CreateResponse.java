@@ -1,4 +1,4 @@
-package doyourbestapp.controller;
+package doyourbestapp.contract;
 
 import doyourbestapp.models.RetroCalendarInventory;
 import lombok.Builder;
@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
  */
 @Data
 @Builder
-public class CreateResponse {
+public class CreateResponse implements Response {
     private String errorMessage;
     private boolean isSuccess;
-    private RetroCalendarInventory retroCalendarInventory;
-    private ResponseEntity<String> responseEntity;
 }
