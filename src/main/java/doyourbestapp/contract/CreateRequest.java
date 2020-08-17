@@ -1,15 +1,11 @@
-package doyourbestapp.controller;
+package doyourbestapp.contract;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import doyourbestapp.models.RetroDay;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author shivanidwivedi on 05/08/20
@@ -19,7 +15,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name="RETRODAYS")
-public class CreateRequest {
+public class CreateRequest implements Request {
     /**
      * If EDIT, then it means that user edited past data. We should also expect date in EDI case
      */

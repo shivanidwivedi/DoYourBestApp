@@ -1,4 +1,4 @@
-package doyourbestapp.controller;
+package doyourbestapp.contract;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Builder
 @Data
-public class FetchRequest {
+public class FetchRequest implements Request {
     /**
      *
      */

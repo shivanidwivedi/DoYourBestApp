@@ -1,4 +1,4 @@
-package doyourbestapp.controller;
+package doyourbestapp.contract;
 
 /**
  * @author shivanidwivedi on 05/08/20

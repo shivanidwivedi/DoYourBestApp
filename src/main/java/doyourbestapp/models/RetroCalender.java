@@ -1,6 +1,5 @@
 package doyourbestapp.models;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,29 +11,24 @@ import java.util.List;
  */
 @Data
 public class RetroCalender {
-    List<RetroDay> monthDays;
+    List<RetroDay> retroDays;
 
     public RetroCalender() {
-        monthDays = new ArrayList<>();
+        retroDays = new ArrayList<>();
     }
-
-    public List<RetroDay> getCurrentMonth() {
-        return null;
-    }
-    public List<RetroDay> getCurrentYear(){ return null; }
 
     public void addDay(RetroDay singleDay) {
         if (getSameDay(singleDay) == null) { //if date is different
-            monthDays.add(singleDay);
+            retroDays.add(singleDay);
         } else {
-            monthDays.set(monthDays.indexOf(singleDay), singleDay);
+            retroDays.set(retroDays.indexOf(singleDay), singleDay);
         }
     }
 
     public RetroDay getSameDay(RetroDay retroDay) {
-        for(RetroDay currDay : monthDays) {
-            if(currDay.getDate().equals(retroDay.getDate())) {
-                return monthDays.get(monthDays.indexOf(retroDay));
+        for(RetroDay currDay : retroDays) {
+            if(currDay.equals(retroDay)) { //equals() method will take care of this comparison.
+                return retroDays.get(retroDays.indexOf(retroDay));
             }
         }
         return null;
